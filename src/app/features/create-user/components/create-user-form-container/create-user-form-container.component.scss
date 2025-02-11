@@ -1,0 +1,16 @@
+.form-container {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.form-card {
+  width: 400px;
+}
+
+.form-actions {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+}

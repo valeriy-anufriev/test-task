@@ -1,0 +1,35 @@
+<div class="form-actions mb-3">
+  @if (isFormSubmitting$ | async) {
+    <button class="btn btn-danger" (click)="cancelFormSubmitting()">Cancel</button>
+
+    <span>0:0{{ submittingTimer$ | async }}</span>
+  } @else {
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="submitForms()"
+      [disabled]="!this.userFormArray.controls.length || (invalidFormsCount$ | async)"
+    >
+      Submit all forms
+    </button>
+  }
+
+  <div *ngIf="invalidFormsCount$ | async as invalidFormsCount" class="text-danger">Invalid forms: {{ invalidFormsCount }}</div>
+</div>
+
+<form class="form-container" [formGroup]="formContainer">
+  <ng-container formArrayName="userFormArray">
+    <app-create-user-form
+      *ngFor="let formControl of userFormArray.controls; let i = index"
+      [formControl]="formControl"
+      (close)="removeFormGroupByIndex(i)"
+      class="form-card"
+    ></app-create-user-form>
+
+    <app-add-new-form-card
+      [disabled]="isFormSubmitting$ | async"
+      (create)="handleCreateFormEvent()"
+      class="form-card"
+    ></app-add-new-form-card>
+  </ng-container>
+</form>

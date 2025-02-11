@@ -1,0 +1,63 @@
+<form class="form-card" [formGroup]="form">
+  <button type="button" class="btn-close form-card-close-button" aria-label="Close" (click)="closeForm()"></button>
+
+  <div class="country-control-container">
+    <label for="countryInput" class="form-label">Country</label>
+
+    <input
+      formControlName="country"
+      [class.is-invalid]="!form.get('country')?.valid && form.get('country')?.touched"
+      type="text"
+      class="form-control"
+      id="countryInput"
+      list="countries"
+    >
+
+    <datalist id="countries">
+      <option *ngFor="let country of countryList" [value]="country"></option>
+    </datalist>
+
+    <div class="invalid-feedback">Please provide a correct Country</div>
+  </div>
+
+  <div class="username-control-container">
+    <label for="userNameInput" class="form-label">Username</label>
+
+    <input
+      formControlName="userName"
+      [class.is-invalid]="isUserNameInvalid$ | async"
+      type="text"
+      class="form-control"
+      id="userNameInput"
+    >
+
+    <div class="invalid-feedback">Please provide a correct Username</div>
+  </div>
+
+  <div class="birthday-control-container">
+    <label for="birthdayInput" class="form-label">Birthday</label>
+
+    <div class="input-group">
+      <input
+        [maxDate]="today"
+        formControlName="birthday"
+        [class.is-invalid]="!form.get('birthday')?.valid && form.get('birthday')?.touched"
+        class="form-control"
+        id="birthdayInput"
+        name="dp"
+        ngbDatepicker
+        #d="ngbDatepicker"
+        readonly
+      />
+
+      <button
+        [disabled]="form.disabled"
+        class="btn btn-outline-secondary bi bi-calendar3"
+        (click)="d.toggle()"
+        type="button"
+      ></button>
+
+      <div class="invalid-feedback">Please select a valid date</div>
+    </div>
+  </div>
+</form>
