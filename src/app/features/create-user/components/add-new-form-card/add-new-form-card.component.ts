@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-new-form-card',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   imports: [],
   templateUrl: './add-new-form-card.component.html',
   styleUrl: './add-new-form-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddNewFormCardComponent {
   @Input() disabled: boolean = false;

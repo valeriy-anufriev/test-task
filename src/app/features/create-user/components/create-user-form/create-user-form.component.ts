@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   EventEmitter,
@@ -9,11 +10,15 @@ import {
 import { NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import {
   AbstractControl,
-  ControlValueAccessor, FormBuilder,
+  ControlValueAccessor,
+  FormBuilder,
   FormGroup,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
-  ReactiveFormsModule, ValidationErrors, Validator, Validators
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validator,
+  Validators
 } from '@angular/forms';
 import { Country } from '../../../../shared/enums';
 import { CommonModule } from '@angular/common';
@@ -43,6 +48,7 @@ import { map, Observable } from 'rxjs';
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateUserFormComponent implements OnInit, ControlValueAccessor, Validator {
   @Output() close = new EventEmitter<void>();
@@ -108,12 +114,6 @@ export class CreateUserFormComponent implements OnInit, ControlValueAccessor, Va
         this.onChange(value);
         this.onTouched();
       });
-
-    this.form.statusChanges.pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(() => {
-      this.onChange(this.form.value); // повторное уведомление
-    });
   }
 
   private buildForm(): FormGroup {

@@ -1,4 +1,4 @@
-import { Component, DestroyRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CreateUserFormComponent } from '../create-user-form/create-user-form.component';
@@ -19,6 +19,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   ],
   templateUrl: './create-user-form-container.component.html',
   styleUrl: './create-user-form-container.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateUserFormContainerComponent {
   readonly formContainer: FormGroup<{ userFormArray: FormArray<FormControl<User>> }>;
